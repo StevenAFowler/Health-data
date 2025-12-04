@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="plot.css">
+<!-- Load d3.js -->
+<!-- <script src="https://d3js.org/d3.v6.js"></script> -->
+<script type="module" src="plot.js"></script>
+
+<html>
+        <head>
+            <title>D3 plotting</title>
+        </head>
+    <body>
+        <div id="content">
+            <div class="info">Hover over a country</div>
+            <svg id="svg" width="1200px" height="600px">
+                <g class="map"></g>
+                <g class="bounding-box"><rect></rect></g>
+                <g class="centroid"><circle r="4"></circle></g>
+            </svg>
+        </div>
+    </body>
+</html>

@@ -1,46 +1,79 @@
-import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+// Reference for structure and approach: 
+//    https://www.d3indepth.com/geographic
+//
 
-// set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+import { select } from 'https://esm.sh/d3-selection';
+import { geoPath, geoMercator } from 'https://esm.sh/d3-geo';
+import { json } from 'https://esm.sh/d3-fetch';
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm"; 
 
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+const svg = document.getElementById("svg");
+const width = svg.width.baseVal.value;
+const height = svg.height.baseVal.value;
 
-//Read the data
-d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNum.csv", function(data) {
+console.log(`${width}, ${height}`)
+let projection = geoMercator()
+	.scale(width / 2.5 / Math.PI)
+	.translate([width / 2, height / 2])
+	.center([0, 0]);
 
-  // Add X axis
-  var x = d3.scaleLinear()
-    .domain([0, 4000])
-    .range([ 0, width ]);
-  svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
+let geoGenerator = geoPath()
+	.projection(projection);
 
-  // Add Y axis
-  var y = d3.scaleLinear()
-    .domain([0, 500000])
-    .range([ height, 0]);
-  svg.append("g")
-    .call(d3.axisLeft(y));
+// 
+function handleMouseover(e, d) {
+  // console.log(`${Object.keys(d.properties)}`);
+	let pixelArea = geoGenerator.area(d);
+	let bounds = geoGenerator.bounds(d);
+	let centroid = geoGenerator.centroid(d);
+	let measure = geoGenerator.measure(d);
 
-  // Add dots
-  svg.append('g')
-    .selectAll("dot")
-    .data(data)
-    .enter()
-    .append("circle")
-      .attr("cx", function (d) { return x(d.GrLivArea); } )
-      .attr("cy", function (d) { return y(d.SalePrice); } )
-      .attr("r", 1.5)
-      .style("fill", "#69b3a2")
+	select('#content .info')
+		.text(d.properties.ADMIN + ' (path.area = ' + pixelArea.toFixed(1) + ' path.measure = ' + measure.toFixed(1) + ')');
 
-})
+	select('#content .bounding-box rect')
+		.attr('x', bounds[0][0])
+		.attr('y', bounds[0][1])
+		.attr('width', bounds[1][0] - bounds[0][0])
+		.attr('height', bounds[1][1] - bounds[0][1]);
+
+	select('#content .centroid')
+		.style('display', 'inline')
+		.attr('transform', 'translate(' + centroid + ')');
+}
+
+// Data and color scale
+  const colorScale = d3.scaleThreshold()
+    .domain([20, 30, 50, 60, 80, 100])
+    .range(d3.schemeBlues[7]);
+
+function update(geojson) {
+	let u = select('#content g.map')
+		.selectAll('path')
+		.data(geojson.features);
+
+	u.enter()
+		.append('path')
+		.attr('d', geoGenerator)
+    // set the color of each country
+      .attr("fill", function (geoJson) {
+        geoJson.total = dataMap.get(geoJson.properties.ADM0_A3) || 0;
+        return colorScale(geoJson.total);
+      })
+		.on('mouseover', handleMouseover);
+}
+
+let dataMap;
+// REQUEST DATA
+Promise.all([
+    json("ne_110m_admin_0_map_units.json"),
+    json("WHOSIS_000001.json")
+  ]).then(function(loadData){
+      
+    // Extract spacial and value data and cast into Map() type
+      dataMap = new Map(loadData[1].value.map(
+        jsonValueLine => [jsonValueLine.SpatialDim, jsonValueLine.NumericValue]
+      ));
+
+      update(loadData[0])
+  });
