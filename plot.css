@@ -27,3 +27,6 @@ body {
   fill: red;
 }
 
+#content input {
+  width: 600px;
+}
