@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="plot.css">
+<!-- Load d3.js -->
+
+
+<html>
+        <head>
+            <title>D3 plotting</title>
+        </head>
+    <body>
+        <div id="content">
+            <script type="module" src="plot.js"></script>
+            <!-- Map area -->
+            <div id="mapArea">
+                <label for="sexOption">Select sex:</label>
+                <select id="sexOption"></select>
+
+                <div class="info">Hover over a country</div>
+                <svg id="svgMap" width="1200px" height="600px">
+                    <g class="map"></g>
+                    <g class="bounding-box"><rect></rect></g>
+                    <!-- <g class="centroid"><circle r="4"></circle></g> -->
+                </svg>
+                <div>
+                    
+                    <label for="slider">Select year </label>
+                    <input type="range" name="slider" id="slider" min="2000" max="2025" value="2015" list="markers">
+                    <datalist id="markers"></datalist>
+                    <span id="sliderOut">Move slide to update...</span> 
+                </div>
+            </div>
+            <!-- Plot area -->
+            <div id="plotArea">
+                <h3 id="plotTitle">Title</h3>
+            </div>
+        </div>
+    </body>
+</html>
