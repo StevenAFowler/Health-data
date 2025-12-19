@@ -57,8 +57,16 @@ function handleMouseclick(e, d) {
 // Data and color scale
 // TODO:Change colour scheme and dynamic
 const colorScale = d3.scaleThreshold()
-	.domain([20, 30, 50, 60, 80, 100])
-	.range(d3.schemeBlues[7]);
+	.domain([40, 50, 60, 65, 70, 75, 80])
+	.range(d3.schemeYlGnBu[8]);
+
+const legendScale = d3.scaleLinear()
+	.domain([40, 50, 60, 65, 70, 75, 80])
+	.range([0, 50]);
+
+const legendAxis = d3.axisBottom(legendScale)
+	.ticks(8)
+	.tickFormat(d3.format(".0f"));
 
 function updateMapPlot() {
 	filterData();
@@ -100,6 +108,12 @@ function initialisePlot() {
 
 	const yearArray = rawData.value.map(list => list.TimeDim);
 	const yearGroups = [...new Set(yearArray)];
+
+	// TODO: Add colour to legend
+	// d3.select('#svgMap')
+	// 	.append("g")
+	// 	.attr("transform", "translate(0, 550)")
+    // 	.call(legendAxis);
 
 	// Dropdown
 	d3.select("#sexOption")
@@ -168,7 +182,7 @@ rangeInput.addEventListener('input', function () {
 /////
 
 // set the dimensions and margins of the graph
-const margin = { top: 10, right: 100, bottom: 30, left: 30 },
+const margin = { top: 10, right: 100, bottom: 50, left: 50 },
 	widthPlot = widthMap - margin.left - margin.right,
 	heightPlot = heightMap / 2 - margin.top - margin.bottom;
 
@@ -181,6 +195,13 @@ const svgPlot = d3.select("#plotArea")
 	.attr("transform",
 		"translate(" + margin.left + "," + margin.top + ")");
 
+// const svgPlot = d3.select("#plotArea")
+// 	.append("svg")
+// 	.attr("viewBox", `0 0 ${widthPlot + margin.left + margin.right} ${heightPlot + margin.top + margin.bottom}`)
+// 	.append("g")
+// 	.attr("transform",
+// 		"translate(" + margin.left + "," + margin.top + ")");
+
 
 let x;
 let y;
@@ -192,9 +213,19 @@ function plotInitiation() {
 			d3.max(rawData.value, function (d) { return +d.TimeDim })
 		])
 		.range([0, widthPlot]);
+	const xAxis = d3.axisBottom(x)
+		.ticks(5)
+		.tickFormat(d3.format(".0f"));
 	svgPlot.append("g")
 		.attr("transform", "translate(0," + heightPlot + ")")
-		. call(d3.axisBottom(x));
+		.call(xAxis);
+		// .call(d3.axisBottom(x));
+
+	svgPlot.append("text")
+		.attr("text-anchor", "end")
+		.attr("x", widthPlot/2 + margin.left)
+      	.attr("y", heightPlot + margin.top + 30)
+      	.text("Year of estimate");
 
 	// Add Y axis
 	y = d3.scaleLinear()
@@ -205,6 +236,13 @@ function plotInitiation() {
 		.range([heightPlot, 0]);
 	svgPlot.append("g")
 		.call(d3.axisLeft(y));
+
+	svgPlot.append("text")
+		.attr("text-anchor", "end")
+		.attr("transform", "rotate(-90)")
+		.attr("y", -margin.left + 20)
+      	.attr("x", -margin.top - heightPlot/2 + 120)
+      	.text("Life expectancy at birth (years)");
 }
 
 // Updateplot
@@ -255,8 +293,8 @@ let filterCountry = "CAN";
 
 // REQUEST DATA
 Promise.all([
-	json("ne_110m_admin_0_map_units.json"),
-	json("WHOSIS_000001.json")
+	json("assets/plot/ne_110m_admin_0_map_units.json"),
+	json("assets/plot/WHOSIS_000001.json")
 ]).then(function (loadData) {
 
 	rawData = loadData[1];

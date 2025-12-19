@@ -1,0 +1,104 @@
+html, body, div, p, ul, li, h1, h2, h3 {
+  /* margin: 0;
+  padding: 0; */
+  /* font-size: 100%; */
+  font-family: "Satoshi", Arial, sans-serif;
+}
+
+html, body, div, p, ul, li {
+  line-height: 1.5;
+  color: #2d334a;
+}
+
+h1, h2, h3 {
+  line-height: 1.25;
+  color: #272343;
+}
+
+html, body {
+  background-color: #fffffe;
+}
+
+/* title */
+#title {
+  /* background-color: #e3f6f5; */
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  text-align: center;
+}
+#innerContent {
+  width: 1200px;
+  min-width: 1200px;
+  background-color:  #FAFAFA;
+  border: #272343;
+  border-style: solid;
+  border-width: 1px;
+}
+/* Filters */
+
+#filters {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: left;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  /* background-color: #e3f6f5; */
+}
+
+#filter_dropbox {
+  min-width: 20%;
+}
+
+#filter_slider {
+  display: flex;
+  align-items: center;
+  max-width: 80%;
+}
+
+#filter_slider input{
+  min-width: 200px;
+}
+
+/* Map area */
+
+#content .info {
+  text-align: center;
+}
+#content .map path {
+  stroke: #fff;
+}
+/* The box that appears around a country when hovering */
+#content .bounding-box rect {
+  fill: none;
+  stroke: #333;
+  stroke-dasharray: 2,1;
+}
+
+#mapArea {
+  align-items: center;
+  text-align: center;
+}
+
+/* #content .centroid {
+  display: none;
+}
+
+#content .centroid circle {
+  fill: red;
+} */
+
+
+/* Plot area */
+#plotArea {
+  text-align: center;
+}
+
+#plotTitle {
+
+}
