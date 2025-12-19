@@ -1,40 +1,75 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="plot.css">
+<link rel="stylesheet" href="assets/plot/plot.css">
 <!-- Load d3.js -->
 
 
 <html>
         <head>
-            <title>D3 plotting</title>
+            <title>Life expectancy at birth (years)</title>
         </head>
     <body>
+        <div id="title">
+            <h1>Life expectancy at birth (years)</h1>
+        </div>
         <div id="content">
-            <script type="module" src="plot.js"></script>
-            <!-- Map area -->
-            <div id="mapArea">
-                <label for="sexOption">Select sex:</label>
-                <select id="sexOption"></select>
+            <div id="innerContent">
+                <script type="module" src="assets/plot/plot.js"></script>
+            
+                <div id="filters">
+                    <h4>Filters</h4>
+                    <div id="filter_dropbox">
+                        <!-- <h3>Select sex of interest in the dropdown menu to filter data</h3> -->
+                        <label for="sexOption">Select sex:</label>
+                        <select id="sexOption"></select>
+                    </div>
+                    <div id="filter_slider">
+                        <!-- <h3>Move the slider to change the year that the map coloring represents</h3> -->
+                        <label for="slider">Select year </label>
+                        <input type="range" name="slider" id="slider" min="2000" max="2025" value="2015" list="markers">
+                        <datalist id="markers"></datalist>
+                        <span id="sliderOut">YYYY</span> 
+                    </div>
+                </div>
 
-                <div class="info">Hover over a country</div>
-                <svg id="svgMap" width="1200px" height="600px">
-                    <g class="map"></g>
-                    <g class="bounding-box"><rect></rect></g>
-                    <!-- <g class="centroid"><circle r="4"></circle></g> -->
-                </svg>
-                <div>
+                <!-- Map area -->
+                <div id="mapArea">
                     
-                    <label for="slider">Select year </label>
-                    <input type="range" name="slider" id="slider" min="2000" max="2025" value="2015" list="markers">
-                    <datalist id="markers"></datalist>
-                    <span id="sliderOut">Move slide to update...</span> 
+                    <h3 class="info">Hover over a country</h3>
+                        <svg id="svgMap" width="1200px" height="600px">
+                        <!-- <svg id="svgMap" viewbox="0 0 1200 600" preserveAspectRatio="xMidYMid meet"> -->
+                            <g class="map"></g>
+                            <g class="bounding-box"><rect></rect></g>
+                            <!-- <g class="centroid"><circle r="4"></circle></g> -->
+                        </svg>
+                </div>
+
+                
+                <!-- Plot area -->
+                <!-- <h3><i>Click on a country in the above map to plot it's data</i></h3> -->
+                <div id="plotArea">
+                    <p id="plotTitle">Click on a country in the above map to plot it's data</p>
                 </div>
             </div>
-            <!-- Plot area -->
-            <div id="plotArea">
-                <h3 id="plotTitle">Title</h3>
-            </div>
         </div>
+        
+        
+        
+        
+        <div>
+            <h2>An interactive plot based on World Health Organisations (WHO) data</h2>
+            <i>Indictor code: WHOSIS_000001</i>
+            <p>
+                The plot shows the `life expectancy at birth` in years for each country in a given calendar year.
+                You can:
+                <ul>
+                    <li>Filter on sex (SEX_MLE - Male, SEX_FMLE - Female, SEX_BTSX - Both combined)</li>
+                    <li>Select the year of interest using the slider</li>
+                    <li>Click on a country to plot that countries specific data</li>
+                </ul>
+            </p>
+        </div>
+        <hr>
     </body>
 </html>
