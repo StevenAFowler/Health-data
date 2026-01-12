@@ -105,6 +105,12 @@ html {
 *
 */
 
+h1 {
+  color: #d9230f;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+}
 summary {
   cursor: pointer;
   background-color: #f5f7fa;
@@ -1272,7 +1278,7 @@ hr {
 [role="button"] {
   cursor: pointer;
 }
-h1,
+/* h1, */
 h2,
 h3,
 h4,
@@ -13111,11 +13117,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=d6f34a27"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="DRAFT"><span style="color: red; font-size: 3rem">DRAFT</span><a class="anchor-link" href="#DRAFT">¶</a></h1><h1 id="WHO,-Global-Health-Observatory---Data-access-and-geospatial-plotting">WHO, Global Health Observatory - Data access and geospatial plotting<a class="anchor-link" href="#WHO,-Global-Health-Observatory---Data-access-and-geospatial-plotting">¶</a></h1><h3 id="Steven-Fowler-(see-more-projects-here)">Steven Fowler <a href="https://stevenafowler.github.io/diablothewonderdog/" id="headerlink" target="_blank">(see more projects here)</a><a class="anchor-link" href="#Steven-Fowler-(see-more-projects-here)">¶</a></h3><img alt="No description has been provided for this image" id="headerimage" src="assets/images/World_Health_Organization_Logo.svg.png"/>
-<p>The Global Health Observatory (GHO) is the World Health Organisation's (WHO) gateway to share data on global health. It is structured into categories of indicators (3043 at time of writing) that describe health statistics. They generally all have dimensions of time (year) and country, some have additional dimensions for example 'Age Group', 'Sex', 'Severity.</p>
+<h1 id="WHO,-Global-Health-Observatory---Data-access-and-geospatial-plotting">WHO, Global Health Observatory - Data access and geospatial plotting<a class="anchor-link" href="#WHO,-Global-Health-Observatory---Data-access-and-geospatial-plotting">¶</a></h1><h3 id="Steven-Fowler-(see-more-projects-here)">Steven Fowler <a href="https://stevenafowler.github.io/profile/" id="headerlink" target="_blank">(see more projects here)</a><a class="anchor-link" href="#Steven-Fowler-(see-more-projects-here)">¶</a></h3><img alt="No description has been provided for this image" id="headerimage" src="assets/images/World_Health_Organization_Logo.svg.png"/>
+<p>The Global Health Observatory (GHO) is the World Health Organisation's (WHO) gateway to share data on global health. It is structured into categories of indicators (3043 at time of writing) that describe health statistics. They generally all have dimensions of time (year) and country, some have additional dimensions for example 'Age Group', 'Sex', 'Severity'.</p>
 <p>This report will look at how to access this data and give examples of geospatial charts that can be generated.</p>
 <h2 id="What-I-did">What I did<a class="anchor-link" href="#What-I-did">¶</a></h2><p>The following show how python can be used to access and navigate the WHO's database thought their OAPI.
-Finally, there are some example geospatial plots of the WHO data in both static and interactive forms.</p>
+Finally, there are some example geospatial plots of the WHO data. There is also an interactive plot written in D3 / JavaScript.</p>
 <h2 id="Why-I-did-it">Why I did it<a class="anchor-link" href="#Why-I-did-it">¶</a></h2><p>The WHO provides an interesting and robust set of data that can be used for investigating global health trends. This investigation was done to demonstrate how this information can be accessed and show examples of how this data can be illustrated. This opening the possibility for focused studies.</p>
 <h2 id="What-I-learnt">What I learnt<a class="anchor-link" href="#What-I-learnt">¶</a></h2><p>The WHO's OAPI facilitates easy access to its databases, which require minimal data processing.</p>
 </div>
@@ -13734,7 +13740,7 @@ dtype: object</pre>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=04057744"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Interactive-plot">Interactive plot<a class="anchor-link" href="#Interactive-plot">¶</a></h2><p>An example of an interactive geospatial plot can be found here: <a href="genericPlot.html">Interactive geospatial chart</a>.</p>
+<h2 id="Interactive-plot">Interactive plot<a class="anchor-link" href="#Interactive-plot">¶</a></h2><p>An example of an interactive geospatial plot can be found here: <a href="ExamplePlot.html">Interactive geospatial chart</a>.</p>
 </div>
 </div>
 </div>
